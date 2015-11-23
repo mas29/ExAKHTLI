@@ -45,7 +45,7 @@ get_plate_nums_in_archive_dir <- function(expt_days, expt_hrs_mins, archive_dir)
 # Function to get the images corresponding to the compound of interest
 # param compound -- compound of interest
 # param archive_dir -- archive directory
-get_images <- function(compound, archive_dir, data_wide, image_types, time_elapsed) {
+get_images <- function(compound, archive_dir, data_wide, image_types, time_elapsed, output_dir) {
 
   # Get info for this compound
   expt_days <- get_experiment_days(archive_dir) # Archive structure
@@ -55,7 +55,7 @@ get_images <- function(compound, archive_dir, data_wide, image_types, time_elaps
   plate <- data_wide[data_wide$Compound == compound,]$Plate[1] # Plate of compound
 
   # Check if images for this compound has already been loaded
-  if (!file.exists(paste("www/Plate",plate, "_Position", position, "_Image", image_types[1], "_t_", as.character(time_elapsed[1]), ".jpeg", sep=""))){
+  if (!file.exists(paste(output_dir,"www/Plate",plate, "_Position", position, "_Image", image_types[1], "_t_", as.character(time_elapsed[1]), ".jpeg", sep=""))){
 
     # Set suffix for the different image types
     suffixes <- list()
@@ -66,8 +66,8 @@ get_images <- function(compound, archive_dir, data_wide, image_types, time_elaps
     suffixes <- as.list(setNames(suffixes, image_types))
 
     # Remove all files in www directory of shiny "explore" app
-    if(length(list.files("www/")) != 0) {
-      files_to_delete <- paste("www/", list.files("www/"), sep="")
+    if(length(list.files(paste(output_dir,"www/",sep=""))) != 0) {
+      files_to_delete <- paste(output_dir,"www/", list.files(paste(output_dir,"www/",sep="")), sep="")
       file.remove(files_to_delete)
     }
 
@@ -82,7 +82,7 @@ get_images <- function(compound, archive_dir, data_wide, image_types, time_elaps
           img <- suppressWarnings(readTIFF(image_dir, native=TRUE))
           print((img*1.2)[1:3])
           print((img)[1:3])
-          writeJPEG(img, target = paste("www/Plate",plate, "_Position", position, "_Image", image_types[x], "_t_", as.character(time_elapsed[count]), ".jpeg", sep=""), quality = 1)
+          writeJPEG(img, target = paste(output_dir,"www/Plate",plate, "_Position", position, "_Image", image_types[x], "_t_", as.character(time_elapsed[count]), ".jpeg", sep=""), quality = 1)
         }
 
         count <- count + 1

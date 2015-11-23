@@ -48,6 +48,9 @@ shinyServer(function(input, output, session) {
       if (!is.null(compound_info_filename)) { input_compound_info <- parse_compound_info(compound_info_filename) }
       if (!is.null(incucyte_data_filename)) { plate_positions <- get_plate_positions(incucyte_data_filename) }
       if (!is.null(incucyte_data_filename) && !is.null(key_data)) { incucyte_data_matrices <- parse_incucyte_data(incucyte_data_filename, key_data) }
+      if (!is.null(input$output_dir)) { # make a temporary www directory for the current images
+        dir.create(file.path(paste(input$output_dir, "www", sep="")), showWarnings = FALSE)
+      }
       
       # --------- process data, add metrics ---------- #
       # if all the files are in place
@@ -207,12 +210,12 @@ shinyServer(function(input, output, session) {
             
             # Get images for that compound into www folder of shiny app
             image_types <- setNames(image_types, image_types)
-            suppressWarnings(get_images(input$compound, input$archive_dir, data_wide, image_types, time_elapsed))
+            suppressWarnings(get_images(input$compound, input$archive_dir, data_wide, image_types, time_elapsed, input$output_dir))
             
             position <- data_wide[which(data_wide$Compound == input$compound),]$Position[1] # Position of compound in plate
             plate <- data_wide[which(data_wide$Compound == input$compound),]$Plate[1] # Plate of compound
             
-            image_file <- paste("www/Plate",plate, "_Position", position, "_Image", image_types[[input$image.type]],"_t_",input$time.elapsed,".jpeg",sep="")
+            image_file <- paste(input$output_dir,"www/Plate",plate, "_Position", position, "_Image", image_types[[input$image.type]],"_t_",input$time.elapsed,".jpeg",sep="")
             
             
             return(list(
