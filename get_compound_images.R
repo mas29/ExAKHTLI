@@ -80,8 +80,6 @@ get_images <- function(compound, archive_dir, data_wide, image_types, time_elaps
         for (x in 1:length(image_types)) {
           image_dir <- paste(archive_dir,expt_days[i],"/",expt_hrs_mins[[i]][j],"/",plate_name_in_archive,"/",toupper(position),suffixes[[x]],sep="")
           img <- suppressWarnings(readTIFF(image_dir, native=TRUE))
-          print((img*1.2)[1:3])
-          print((img)[1:3])
           writeJPEG(img, target = paste(output_dir,"www/Plate",plate, "_Position", position, "_Image", image_types[x], "_t_", as.character(time_elapsed[count]), ".jpeg", sep=""), quality = 1)
         }
 

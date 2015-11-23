@@ -40,9 +40,7 @@ shinyUI(navbarPage("Perspective:",
          selectizeInput("overview.target", 'Target', choices = list("Loading..."), multiple = FALSE),
          selectizeInput("overview.compound", 'Compound', choices = list("Loading..."), multiple = FALSE)
        ),
-       mainPanel(
-         # ggvisOutput("allsparklines")
-         )
+       mainPanel(ggvisOutput("allsparklines"))
      )
   )
   ,
