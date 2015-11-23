@@ -1,7 +1,7 @@
 # new shiny server Oct 24, 2015
 
 # install any packages that need to be installed
-packages_to_install <- c("shiny", "XLConnect", "plyr", "reshape", "pracma", "car", "Rmisc", "dplyr", "ggvis", "ggplot2", "grid", "tiff", "jpeg", "Rcpp", "rsconnect")
+list.of.packages <- c("shiny", "XLConnect", "plyr", "reshape", "pracma", "car", "Rmisc", "dplyr", "ggvis", "ggplot2", "grid", "tiff", "jpeg", "Rcpp", "rsconnect")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages)
 
