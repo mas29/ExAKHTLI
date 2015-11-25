@@ -14,7 +14,7 @@ library(grid)
 library(RcppEigen)
 library(tiff)
 library(jpeg)
-library(rsconnect)
+# library(rsconnect)
 
 shinyUI(navbarPage("Perspective:",
   tabPanel("Inputs",

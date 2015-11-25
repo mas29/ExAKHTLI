@@ -20,7 +20,7 @@ library(grid)
 library(tiff)
 library(jpeg)
 library(Rcpp)
-library(rsconnect)
+# library(rsconnect)
 
 source("parse_input_excel_files.R", local=TRUE)
 source("process_data.R", local=TRUE)
