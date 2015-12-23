@@ -1,7 +1,9 @@
 # new shiny server Oct 24, 2015
+cat("bar\n", file=stderr())
+# cat(.libPaths(), file=stderr())
 
 # install any packages that need to be installed
-list.of.packages <- c("shiny", "XLConnect", "plyr", "reshape", "pracma", "car", "Rmisc", "dplyr", "ggvis", "ggplot2", "grid", "tiff", "jpeg", "Rcpp", "rsconnect")
+list.of.packages <- c("shiny", "XLConnect", "plyr", "reshape", "pracma", "car", "Rmisc", "dplyr", "ggvis", "ggplot2", "grid", "tiff", "jpeg", "Rcpp")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages)
 
@@ -20,7 +22,6 @@ library(grid)
 library(tiff)
 library(jpeg)
 library(Rcpp)
-# library(rsconnect)
 
 source("parse_input_excel_files.R", local=TRUE)
 source("process_data.R", local=TRUE)
